@@ -143,12 +143,12 @@ func Parse(contents string, urlStr string) (robotsTxt *RobotsTxt, err error) {
 				break
 			case "allow":
 				for _, ua := range userAgents {
-					robotsTxt.addPathRule(ua, val, true)
+					robotsTxt.AddPathRule(ua, val, true)
 				}
 				break
 			case "disallow":
 				for _, ua := range userAgents {
-					robotsTxt.addPathRule(ua, val, false)
+					robotsTxt.AddPathRule(ua, val, false)
 				}
 				break
 			case "crawl-delay":
@@ -175,7 +175,8 @@ func Parse(contents string, urlStr string) (robotsTxt *RobotsTxt, err error) {
 	return
 }
 
-func (r *RobotsTxt) addPathRule(userAgent string, path string, isAllowed bool) error {
+// AddPathRule adds another path rule
+func (r *RobotsTxt) AddPathRule(userAgent string, path string, isAllowed bool) error {
 	g, ok := r.groups[userAgent]
 	if !ok {
 		g = &group{}
