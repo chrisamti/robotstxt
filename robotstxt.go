@@ -76,7 +76,8 @@ func compilePattern(pattern string) (*regexp.Regexp, error) {
 	return regexp.Compile(pattern)
 }
 
-func normaliseUserAgent(userAgent string) string {
+// NormaliseUserAgent normalizes a user agent
+func NormaliseUserAgent(userAgent string) string {
 	index := strings.IndexRune(userAgent, '/')
 	if index > -1 {
 		userAgent = userAgent[:index]
