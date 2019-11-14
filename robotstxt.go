@@ -140,7 +140,7 @@ func Parse(contents string, urlStr string) (robotsTxt *RobotsTxt, err error) {
 				if isNoneUserAgentState {
 					userAgents = nil
 				}
-				userAgents = append(userAgents, normaliseUserAgent(val))
+				userAgents = append(userAgents, NormaliseUserAgent(val))
 				break
 			case "allow":
 				for _, ua := range userAgents {
@@ -239,7 +239,7 @@ func (r *RobotsTxt) Host() string {
 // CrawlDelay returns the crawl delay for the specified
 // user agent or 0 if there is none
 func (r *RobotsTxt) CrawlDelay(userAgent string) time.Duration {
-	if group, ok := r.groups[normaliseUserAgent(userAgent)]; ok {
+	if group, ok := r.groups[NormaliseUserAgent(userAgent)]; ok {
 		return group.crawlDelay
 	}
 
@@ -269,7 +269,7 @@ func (r *RobotsTxt) IsAllowed(userAgent string, urlStr string) (result bool, err
 
 	result = true
 
-	if group, ok := r.groups[normaliseUserAgent(userAgent)]; ok {
+	if group, ok := r.groups[NormaliseUserAgent(userAgent)]; ok {
 		result = group.isAllowed(userAgent, u.Path)
 	} else if group, ok := r.groups["*"]; ok {
 		result = group.isAllowed(userAgent, u.Path)
